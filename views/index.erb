@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>wakate2016</title>
+  <style>
+    :root {
+      box-sizing: border-box;
+    }
+    html,
+    body,
+    .container {
+      width: 100vw;
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #c0e7f1, #d6f2d6);
+    }
+    .container {
+      background: rgba(0, 0, 0, .3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-primary,
+    .btn-primary:before,
+    .btn-primary:after {
+      border-radius: 4px;
+      -webkit-transition: all .3s;
+      transition: all .3s;
+    }
+    .btn-primary {
+      position: relative;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 32px;
+      line-height: 2.4;
+      color: #fff;
+      background-color: #555;
+      z-index: 2;
+      font-size: 21px;
+    }
+    .btn-primary:before,
+    .btn-primary:after {
+      position: absolute;
+      z-index: -1;
+      display: block;
+      content: '';
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background-color: #555;
+    }
+    .btn-primary:before {
+      right: 0;
+    }
+    .btn-primary:after {
+      left: 0;
+    }
+    .btn-primary:hover {
+      background-color: transparent;
+      color: #d4f0f7;
+      border: 2px solid #d4f0f7;
+    }
+    .btn-primary:hover::before,
+    .btn-primary:hover::after {
+      width: 0;
+      background-color: #d4f0f7;
+    }
+  </style>
+  <script type="text/javascript">
+    function handleBtnOkClick(e) {
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function() {
+        switch ( xhr.readyState ) {
+          case 0: // uninitialized
+          case 1: // sending
+          case 2: // waiting
+          case 3: // receiving data
+            break;
+          case 4: // receive completed
+            if( xhr.status == 200 || xhr.status == 304 ) {
+              e.target.innerText = "Clear !";
+            } else {
+              // TODO: Should handle errors
+            }
+            xhr.abort();
+            break;
+        }
+      };
+
+      e.target.innerText = "Waiting...";
+      xhr.open("GET", "/warn", false);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send();
+    }
+    window.onload = function() {
+      var $btnOk = document.querySelectorAll("#btn-ok")[0];
+      $btnOk.addEventListener("click", handleBtnOkClick);
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <button class="btn-primary" id="btn-ok">OK ?</button>
+  </div>
+</body>
+</html>
